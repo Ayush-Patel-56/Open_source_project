@@ -1,5 +1,5 @@
 [build]
-  publish = "agriplatform"
+  publish = "agriplatform/Landing Page"
   functions = "netlify/functions"
 
 [[redirects]]
