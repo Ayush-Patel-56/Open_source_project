@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,14 @@ if (!API_KEY) {
 app.use(cors());
 // Disable caching for API responses
 app.use((req,res,next)=>{ res.set('Cache-Control','no-store'); next(); });
+
+// Serve static frontend
+app.use(express.static(path.join(__dirname, 'agriplatform')));
+
+// Root -> Landing Page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'agriplatform', 'Landing Page', 'index.html'));
+});
 
 // Soil data from SoilGrids (no API key). Falls back to deterministic mock if needed.
 app.get('/api/soil', async (req, res) => {
